@@ -7,12 +7,14 @@
   "author": "stupid cat (cat@blargbot.xyz)",
   "license": "MIT",
   "scripts": {
-    "test": "\"./node_modules/mocha/bin/mocha\""
+    "test": "\"./node_modules/mocha/bin/mocha\"",
+    "docs": "jsdoc src/index.js -d docs"
   },
   "dependencies": {
     "big-integer": "^1.6.36"
   },
   "devDependencies": {
+    "jsdoc": "^3.5.5",
     "mocha": "^5.2.0"
   }
 }
