@@ -38,6 +38,32 @@ describe('Catflake', function () {
         assert.equal(catflake.options.newprop, undefined, 'A new property was added');
       });
     });
+
+    it('should work with no worker bits', function () {
+      let catflake = new Catflake({
+        workerBits: 0,
+        processBits: 10,
+        processId: 1023
+      });
+
+      let flake = catflake.generate();
+      let deconstructed = catflake.deconstruct(flake);
+      assert.equal(deconstructed.processId.valueOf(), 1023, 'The process ID was incorrect');
+      assert.equal(deconstructed.workerId.valueOf(), 0, 'The worker ID was not 0');
+    });
+
+    it('should work with no process bits', function () {
+      let catflake = new Catflake({
+        workerBits: 10,
+        processBits: 0,
+        workerId: 1023
+      });
+
+      let flake = catflake.generate();
+      let deconstructed = catflake.deconstruct(flake);
+      assert.equal(deconstructed.workerId.valueOf(), 1023, 'The worker ID was incorrect');
+      assert.equal(deconstructed.processId.valueOf(), 0, 'The process ID was not 0');
+    });
   });
 
   describe('sync', function () {

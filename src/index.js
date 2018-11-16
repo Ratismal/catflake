@@ -73,8 +73,12 @@ class Catflake {
     }
 
     // ensure that ids conform to the number of bits
-    this.options.processId = this.options.processId % (getBits(this.options.processBits));
-    this.options.workerId = this.options.workerId % (getBits(this.options.workerBits));
+    this.options.processId = this.options.processId % (2 ** this.options.processBits);
+    this.options.workerId = this.options.workerId % (2 ** this.options.workerBits);
+    // check if NaN
+    if (isNaN(this.options.processId)) this.options.processId = 0;
+    if (isNaN(this.options.workerId)) this.options.workerId = 0;
+
     // store the maximum increment bound
     this.maxIncrement = 2 ** this.options.incrementBits;
 
